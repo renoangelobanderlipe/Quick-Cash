@@ -1,7 +1,5 @@
-import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { Head, Link } from '@inertiajs/react';
 
 import DeleteUser from '@/components/delete-user';
 import InputError from '@/components/input-error';
@@ -13,38 +11,15 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import { useHooks } from './useHooks';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Profile settings',
-        href: '/settings/profile',
-    },
-];
-
-type ProfileForm = {
-    first_name: string;
-    middle_name: string;
-    last_name: string;
-    email: string;
+type ProfileType = {
+    mustVerifyEmail: boolean;
+    status?: string;
 };
 
-export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) {
-    const { auth } = usePage<SharedData>().props;
-
-    const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<Required<ProfileForm>>({
-        first_name: auth.user.first_name,
-        middle_name: auth.user.middle_name,
-        last_name: auth.user.last_name,
-        email: auth.user.email,
-    });
-
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
-
-        patch(route('profile.update'), {
-            preserveScroll: true,
-        });
-    };
+export default function Profile({ mustVerifyEmail, status }: ProfileType) {
+    const { breadcrumbs, auth, data, setData, errors, processing, recentlySuccessful, submit } = useHooks();
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
