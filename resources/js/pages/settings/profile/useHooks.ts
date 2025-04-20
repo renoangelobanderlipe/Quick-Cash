@@ -7,6 +7,15 @@ type ProfileForm = {
     middle_name: string;
     last_name: string;
     email: string;
+    company_email: string;
+    birthdate: Date;
+    nationality: string;
+    street: string;
+    barangay: string;
+    city: string;
+    province: string;
+    zipcode: string;
+    tenant_name: string;
 };
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -24,6 +33,15 @@ export const useHooks = () => {
         middle_name: auth.user.middle_name,
         last_name: auth.user.last_name,
         email: auth.user.email,
+        company_email: auth.user.company_email,
+        birthdate: auth.user.birthdate,
+        nationality: auth.user.nationality,
+        street: auth.user.street,
+        barangay: auth.user.barangay,
+        city: auth.user.city,
+        province: auth.user.province,
+        zipcode: auth.user.zipcode,
+        tenant_name: auth.user.tenant.name,
     });
 
     const submit: FormEventHandler = (e) => {

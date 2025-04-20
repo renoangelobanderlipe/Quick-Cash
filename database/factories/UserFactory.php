@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -22,16 +24,33 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $firstName = $this->faker->firstName();
+        $lastName = $this->faker->lastName();
+        $email = $this->faker->unique()->safeEmail();
+        $company_email = $this->faker->unique()->companyEmail();
+        $md5Email = md5($email);
+
         return [
-            'first_name' => $this->faker->firstName,
-            'middle_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'email' => $this->faker->unique()->safeEmail,
-            'md5_email' => $this->faker->unique()->md5(),
-            'is_active' => $this->faker->boolean(),
+            'first_name' => $firstName,
+            'middle_name' => $this->faker->optional()->firstName(),
+            'last_name' => $lastName,
+            'gender' => $this->faker->randomElement(['male', 'female']),
+            'birthdate' => $this->faker->date('Y-m-d', '-18 years'),
+            'nationality' => 'PH',
+            'email' => $email,
+            'company_email' => $company_email,
+            'md5_email' => $md5Email,
+            'phone_number' => $this->faker->numerify('09#########'),
+            'street' => $this->faker->streetAddress(),
+            'barangay' => $this->faker->citySuffix(),
+            'city' => $this->faker->city(),
+            'province' => $this->faker->state(),
+            'zipcode' => $this->faker->postcode(),
+            'password' => Hash::make('password'), // Use Hash to mimic real behavior
             'email_verified_at' => now(),
-            'password' => bcrypt('123123123'), // for test only
+            'is_active' => true,
             'remember_token' => Str::random(10),
+            'tenant_id' => Tenant::factory(), // Assumes you have a TenantFactory
         ];
     }
 

@@ -31,15 +31,33 @@ export interface SharedData {
     [key: string]: unknown;
 }
 
+export interface Tenant {
+    id: string;
+    name: string;
+    address: string;
+    details: string;
+    capital: Decimal;
+    created_at: Date;
+    updated_at: Date;
+}
 export interface User {
     id: number;
     first_name: string;
     middle_name: string;
     last_name: string;
     email: string;
+    company_email: string;
+    birthdate: Date;
+    nationality: string;
+    street: string;
+    barangay: string;
+    city: string;
+    province: string;
+    zipcode: string;
     is_active: string;
     md5_email?: string;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+    tenant: Tenant;
 }

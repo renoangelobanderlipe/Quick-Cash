@@ -1,25 +1,22 @@
 import { Transition } from '@headlessui/react';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 
 import DeleteUser from '@/components/delete-user';
 import InputError from '@/components/input-error';
 import DisabledTextInput from '@/components/templates/DisabledTextInput';
 import EmailInput from '@/components/templates/Input/EmailInput';
 import TextInput from '@/components/templates/Input/TextInput';
+import ProfileUpload from '@/components/templates/ProfileUpload';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import moment from 'moment';
 import { useHooks } from './useHooks';
 
-type ProfileType = {
-    mustVerifyEmail: boolean;
-    status?: string;
-};
-
-export default function Profile({ mustVerifyEmail, status }: ProfileType) {
-    const { breadcrumbs, auth, data, setData, errors, processing, recentlySuccessful, submit } = useHooks();
+export default function Profile() {
+    const { breadcrumbs, data, setData, errors, processing, recentlySuccessful, submit } = useHooks();
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -27,8 +24,10 @@ export default function Profile({ mustVerifyEmail, status }: ProfileType) {
 
             <SettingsLayout>
                 <form onSubmit={submit} className="flex w-full flex-col gap-4 lg:flex-row lg:gap-6">
-                    <Card className="h-full lg:w-[40%]">
-                        <CardContent>IMAGE HERE</CardContent>
+                    <Card className="flex h-full flex-col items-center lg:w-[40%]">
+                        <CardContent>
+                            <ProfileUpload />
+                        </CardContent>
                         <CardFooter>
                             <DeleteUser />
                         </CardFooter>
@@ -71,6 +70,15 @@ export default function Profile({ mustVerifyEmail, status }: ProfileType) {
                                 error={<InputError className="mt-2" message={errors.last_name} />}
                             />
 
+                            {/* Company */}
+                            <DisabledTextInput
+                                id="company"
+                                value={data.tenant_name}
+                                placeholder="Company"
+                                label={<Label htmlFor="company">Company</Label>}
+                                size="lg"
+                            />
+
                             {/* Email */}
                             <EmailInput
                                 id="email"
@@ -83,100 +91,99 @@ export default function Profile({ mustVerifyEmail, status }: ProfileType) {
                                 error={<InputError className="mt-2" message={errors.email} />}
                             />
 
-                            {/* Company */}
+                            {/* Company Email */}
                             <DisabledTextInput
-                                id="company"
-                                value={data.email}
-                                placeholder="Company"
-                                label={<Label htmlFor="company">Company</Label>}
+                                id="company_email"
+                                value={data.company_email}
+                                placeholder="Company Email"
                                 size="lg"
+                                label={<Label htmlFor="company_email">Company Email</Label>}
                             />
 
                             {/* Birth Date */}
-                            <TextInput
-                                id="last_name"
-                                value={data.last_name}
-                                onChange={(e) => setData('last_name', e.target.value)}
-                                autoComplete="last_name"
+                            <DisabledTextInput
+                                id="birthdate"
+                                value={moment(data.birthdate).format('MMMM D, YYYY')}
                                 placeholder="Last Name"
                                 size="lg"
-                                label={<Label htmlFor="last_name">Birth Date</Label>}
-                                error={<InputError className="mt-2" message={errors.last_name} />}
+                                label={<Label htmlFor="birthdate">Birth Date</Label>}
                             />
 
                             {/* Nationality */}
                             <TextInput
-                                id="last_name"
-                                value={data.last_name}
-                                onChange={(e) => setData('last_name', e.target.value)}
-                                autoComplete="last_name"
+                                id="nationality"
+                                value={data.nationality}
+                                onChange={(e) => setData('nationality', e.target.value)}
+                                autoComplete="nationality"
                                 placeholder="Nationality"
                                 size="lg"
-                                label={<Label htmlFor="last_name">Nationality</Label>}
-                                error={<InputError className="mt-2" message={errors.last_name} />}
+                                label={<Label htmlFor="nationality">Nationality</Label>}
+                                error={<InputError className="mt-2" message={errors.nationality} />}
                             />
-
+                        </CardContent>
+                        <CardHeader className="h-2 text-lg font-bold">Address</CardHeader>
+                        <CardContent className="grid gap-4 py-2 lg:grid-cols-2">
                             {/* Street */}
                             <TextInput
-                                id="last_name"
-                                value={data.last_name}
-                                onChange={(e) => setData('last_name', e.target.value)}
-                                autoComplete="last_name"
+                                id="street"
+                                value={data.street}
+                                onChange={(e) => setData('street', e.target.value)}
+                                autoComplete="street"
                                 placeholder="Street"
                                 size="lg"
-                                label={<Label htmlFor="last_name">Street</Label>}
-                                error={<InputError className="mt-2" message={errors.last_name} />}
+                                label={<Label htmlFor="street">Street</Label>}
+                                error={<InputError className="mt-2" message={errors.street} />}
                             />
 
                             {/* Barangay */}
                             <TextInput
-                                id="last_name"
-                                value={data.last_name}
-                                onChange={(e) => setData('last_name', e.target.value)}
-                                autoComplete="last_name"
+                                id="barangay"
+                                value={data.barangay}
+                                onChange={(e) => setData('barangay', e.target.value)}
+                                autoComplete="barangay"
                                 placeholder="Barangay"
                                 size="lg"
-                                label={<Label htmlFor="last_name">Barangay</Label>}
-                                error={<InputError className="mt-2" message={errors.last_name} />}
+                                label={<Label htmlFor="barangay">Barangay</Label>}
+                                error={<InputError className="mt-2" message={errors.barangay} />}
                             />
 
                             {/* City */}
                             <TextInput
-                                id="last_name"
-                                value={data.last_name}
-                                onChange={(e) => setData('last_name', e.target.value)}
-                                autoComplete="last_name"
+                                id="city"
+                                value={data.city}
+                                onChange={(e) => setData('city', e.target.value)}
+                                autoComplete="city"
                                 placeholder="City"
                                 size="lg"
-                                label={<Label htmlFor="last_name">City</Label>}
-                                error={<InputError className="mt-2" message={errors.last_name} />}
+                                label={<Label htmlFor="city">City</Label>}
+                                error={<InputError className="mt-2" message={errors.city} />}
                             />
 
                             {/* Province */}
                             <TextInput
-                                id="last_name"
-                                value={data.last_name}
-                                onChange={(e) => setData('last_name', e.target.value)}
-                                autoComplete="last_name"
+                                id="province"
+                                value={data.province}
+                                onChange={(e) => setData('province', e.target.value)}
+                                autoComplete="province"
                                 placeholder="Province"
                                 size="lg"
-                                label={<Label htmlFor="last_name">Province</Label>}
-                                error={<InputError className="mt-2" message={errors.last_name} />}
+                                label={<Label htmlFor="province">Province</Label>}
+                                error={<InputError className="mt-2" message={errors.province} />}
                             />
 
                             {/* Zip Code */}
                             <TextInput
-                                id="last_name"
-                                value={data.last_name}
-                                onChange={(e) => setData('last_name', e.target.value)}
-                                autoComplete="last_name"
+                                id="zipcode"
+                                value={data.zipcode}
+                                onChange={(e) => setData('zipcode', e.target.value)}
+                                autoComplete="zipcode"
                                 placeholder="Zip Code"
                                 size="lg"
-                                label={<Label htmlFor="last_name">Zip Code</Label>}
-                                error={<InputError className="mt-2" message={errors.last_name} />}
+                                label={<Label htmlFor="zipcode">Zip Code</Label>}
+                                error={<InputError className="mt-2" message={errors.zipcode} />}
                             />
 
-                            {mustVerifyEmail && auth.user.email_verified_at === null && (
+                            {/* {mustVerifyEmail && auth.user.email_verified_at === null && (
                                 <div>
                                     <p className="text-muted-foreground -mt-4 text-sm">
                                         Your email address is unverified.{' '}
@@ -196,8 +203,9 @@ export default function Profile({ mustVerifyEmail, status }: ProfileType) {
                                         </div>
                                     )}
                                 </div>
-                            )}
+                            )} */}
                         </CardContent>
+
                         <CardFooter>
                             <div className="flex w-full items-center gap-4">
                                 <div className="flex w-full justify-end">
