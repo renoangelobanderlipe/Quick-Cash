@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { useFullscreen } from '@/hooks/useFullscreen';
+import { useFullscreen } from '@/hooks/use-fullscreen';
 import { Maximize, Minimize, SettingsIcon } from 'lucide-react';
 import { memo } from 'react';
 import SettingsFont from '../Font/SettingsFont';

@@ -1,13 +1,13 @@
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 import DeleteUser from '@/components/delete-user';
-import HeadingSmall from '@/components/heading-small';
 import InputError from '@/components/input-error';
-import EmailInput from '@/components/templates/EmailInput';
-import TextInput from '@/components/templates/TextInput';
+import DisabledTextInput from '@/components/templates/DisabledTextInput';
+import EmailInput from '@/components/templates/Input/EmailInput';
+import TextInput from '@/components/templates/Input/TextInput';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -51,64 +51,155 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             <Head title="Profile settings" />
 
             <SettingsLayout>
-                <div className="space-y-6">
-                    <HeadingSmall title="Profile information" description="Update your name and email address" />
+                <form onSubmit={submit} className="flex w-full flex-col gap-4 lg:flex-row lg:gap-6">
+                    <Card className="h-full lg:w-[40%]">
+                        <CardContent>IMAGE HERE</CardContent>
+                        <CardFooter>
+                            <DeleteUser />
+                        </CardFooter>
+                    </Card>
+                    <Card className="w-full">
+                        <CardContent className="grid gap-4 lg:grid-cols-2">
+                            {/* First Name */}
+                            <TextInput
+                                id="first_name"
+                                value={data.first_name}
+                                onChange={(e) => setData('first_name', e.target.value)}
+                                autoComplete="first_name"
+                                placeholder="First Name"
+                                size="lg"
+                                label={<Label htmlFor="first_name">First Name</Label>}
+                                error={<InputError className="mt-2" message={errors.first_name} />}
+                            />
 
-                    <form onSubmit={submit} className="flex w-full gap-6">
-                        <Card className="w-[50%]">
-                            <CardContent>
-                                <input type="file" accept="image/*" />
-                            </CardContent>
-                            <CardFooter>
-                                <DeleteUser />
-                            </CardFooter>
-                        </Card>
-                        <Card className="w-[50%]">
-                            <div className="">
-                                <TextInput
-                                    id="first_name"
-                                    value={data.first_name}
-                                    onChange={(e) => setData('first_name', e.target.value)}
-                                    autoComplete="first_name"
-                                    placeholder="First Name"
-                                    label={<Label htmlFor="first_name">First Name</Label>}
-                                    error={<InputError className="mt-2" message={errors.first_name} />}
-                                />
-                            </div>
-                            <div className="">
-                                <TextInput
-                                    id="middle_name"
-                                    value={data.middle_name}
-                                    onChange={(e) => setData('middle_name', e.target.value)}
-                                    autoComplete="middle_name"
-                                    placeholder="Middle Name"
-                                    label={<Label htmlFor="middle_name">Middle Name</Label>}
-                                    error={<InputError className="mt-2" message={errors.middle_name} />}
-                                />
-                            </div>
-                            <div className="">
-                                <TextInput
-                                    id="last_name"
-                                    value={data.last_name}
-                                    onChange={(e) => setData('last_name', e.target.value)}
-                                    autoComplete="last_name"
-                                    placeholder="Last Name"
-                                    label={<Label htmlFor="last_name">Last Name</Label>}
-                                    error={<InputError className="mt-2" message={errors.last_name} />}
-                                />
-                            </div>
+                            {/* Middle Name */}
+                            <TextInput
+                                id="middle_name"
+                                value={data.middle_name}
+                                onChange={(e) => setData('middle_name', e.target.value)}
+                                autoComplete="middle_name"
+                                placeholder="Middle Name"
+                                size="lg"
+                                label={<Label htmlFor="middle_name">Middle Name</Label>}
+                                error={<InputError className="mt-2" message={errors.middle_name} />}
+                            />
 
-                            <div className="">
-                                <EmailInput
-                                    id="email"
-                                    value={data.email}
-                                    onChange={(e) => setData('email', e.target.value)}
-                                    autoComplete="email"
-                                    placeholder="Email"
-                                    label={<Label htmlFor="email">Email</Label>}
-                                    error={<InputError className="mt-2" message={errors.email} />}
-                                />
-                            </div>
+                            {/* Last Name */}
+                            <TextInput
+                                id="last_name"
+                                value={data.last_name}
+                                onChange={(e) => setData('last_name', e.target.value)}
+                                autoComplete="last_name"
+                                placeholder="Last Name"
+                                size="lg"
+                                label={<Label htmlFor="last_name">Last Name</Label>}
+                                error={<InputError className="mt-2" message={errors.last_name} />}
+                            />
+
+                            {/* Email */}
+                            <EmailInput
+                                id="email"
+                                value={data.email}
+                                onChange={(e) => setData('email', e.target.value)}
+                                autoComplete="email"
+                                placeholder="Email"
+                                size="lg"
+                                label={<Label htmlFor="email">Email</Label>}
+                                error={<InputError className="mt-2" message={errors.email} />}
+                            />
+
+                            {/* Company */}
+                            <DisabledTextInput
+                                id="company"
+                                value={data.email}
+                                placeholder="Company"
+                                label={<Label htmlFor="company">Company</Label>}
+                                size="lg"
+                            />
+
+                            {/* Birth Date */}
+                            <TextInput
+                                id="last_name"
+                                value={data.last_name}
+                                onChange={(e) => setData('last_name', e.target.value)}
+                                autoComplete="last_name"
+                                placeholder="Last Name"
+                                size="lg"
+                                label={<Label htmlFor="last_name">Birth Date</Label>}
+                                error={<InputError className="mt-2" message={errors.last_name} />}
+                            />
+
+                            {/* Nationality */}
+                            <TextInput
+                                id="last_name"
+                                value={data.last_name}
+                                onChange={(e) => setData('last_name', e.target.value)}
+                                autoComplete="last_name"
+                                placeholder="Nationality"
+                                size="lg"
+                                label={<Label htmlFor="last_name">Nationality</Label>}
+                                error={<InputError className="mt-2" message={errors.last_name} />}
+                            />
+
+                            {/* Street */}
+                            <TextInput
+                                id="last_name"
+                                value={data.last_name}
+                                onChange={(e) => setData('last_name', e.target.value)}
+                                autoComplete="last_name"
+                                placeholder="Street"
+                                size="lg"
+                                label={<Label htmlFor="last_name">Street</Label>}
+                                error={<InputError className="mt-2" message={errors.last_name} />}
+                            />
+
+                            {/* Barangay */}
+                            <TextInput
+                                id="last_name"
+                                value={data.last_name}
+                                onChange={(e) => setData('last_name', e.target.value)}
+                                autoComplete="last_name"
+                                placeholder="Barangay"
+                                size="lg"
+                                label={<Label htmlFor="last_name">Barangay</Label>}
+                                error={<InputError className="mt-2" message={errors.last_name} />}
+                            />
+
+                            {/* City */}
+                            <TextInput
+                                id="last_name"
+                                value={data.last_name}
+                                onChange={(e) => setData('last_name', e.target.value)}
+                                autoComplete="last_name"
+                                placeholder="City"
+                                size="lg"
+                                label={<Label htmlFor="last_name">City</Label>}
+                                error={<InputError className="mt-2" message={errors.last_name} />}
+                            />
+
+                            {/* Province */}
+                            <TextInput
+                                id="last_name"
+                                value={data.last_name}
+                                onChange={(e) => setData('last_name', e.target.value)}
+                                autoComplete="last_name"
+                                placeholder="Province"
+                                size="lg"
+                                label={<Label htmlFor="last_name">Province</Label>}
+                                error={<InputError className="mt-2" message={errors.last_name} />}
+                            />
+
+                            {/* Zip Code */}
+                            <TextInput
+                                id="last_name"
+                                value={data.last_name}
+                                onChange={(e) => setData('last_name', e.target.value)}
+                                autoComplete="last_name"
+                                placeholder="Zip Code"
+                                size="lg"
+                                label={<Label htmlFor="last_name">Zip Code</Label>}
+                                error={<InputError className="mt-2" message={errors.last_name} />}
+                            />
 
                             {mustVerifyEmail && auth.user.email_verified_at === null && (
                                 <div>
@@ -131,9 +222,12 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                     )}
                                 </div>
                             )}
-
-                            <div className="flex items-center gap-4">
-                                <Button disabled={processing}>Save</Button>
+                        </CardContent>
+                        <CardFooter>
+                            <div className="flex w-full items-center gap-4">
+                                <div className="flex w-full justify-end">
+                                    <Button disabled={processing}>Save changes</Button>
+                                </div>
 
                                 <Transition
                                     show={recentlySuccessful}
@@ -145,9 +239,9 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                     <p className="text-sm text-neutral-600">Saved</p>
                                 </Transition>
                             </div>
-                        </Card>
-                    </form>
-                </div>
+                        </CardFooter>
+                    </Card>
+                </form>
             </SettingsLayout>
         </AppLayout>
     );
