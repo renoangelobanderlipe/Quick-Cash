@@ -1,11 +1,11 @@
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
+import { useCompactMode } from '@/hooks/use-compact-mode';
 import { ChevronsLeftRightEllipsis } from 'lucide-react';
 import { memo } from 'react';
-import { useHooks } from './hooks';
 
 const CardCompact = () => {
-    const { toggleCompact, isCompact, setCompact } = useHooks();
+    const { toggleCompact, isCompact, setCompact } = useCompactMode();
     return (
         <Card onClick={toggleCompact} className="w-full cursor-pointer">
             <CardContent className="flex items-center justify-between">
