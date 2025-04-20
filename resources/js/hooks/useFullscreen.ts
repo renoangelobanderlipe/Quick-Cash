@@ -5,9 +5,9 @@ export const useFullscreen = () => {
 
     const getFullscreenElement = (): Element | null =>
         document.fullscreenElement ||
-        // @ts-ignore
+        // @ts-expect-error - legacy WebKit support
         document.webkitFullscreenElement ||
-        // @ts-ignore
+        // @ts-expect-error - legacy MS support
         document.msFullscreenElement ||
         null;
 
@@ -15,16 +15,16 @@ export const useFullscreen = () => {
         if (element.requestFullscreen) {
             element.requestFullscreen().catch(console.error);
         } else if (
-            // @ts-ignore
+            // @ts-expect-error - legacy WebKit support
             element.webkitRequestFullscreen
         ) {
-            // @ts-ignore
+            // @ts-expect-error - legacy WebKit support
             element.webkitRequestFullscreen();
         } else if (
-            // @ts-ignore
+            // @ts-expect-error - legacy MS support
             element.msRequestFullscreen
         ) {
-            // @ts-ignore
+            // @ts-expect-error - legacy MS support
             element.msRequestFullscreen();
         } else {
             console.warn('Fullscreen API is not supported.');
@@ -35,16 +35,16 @@ export const useFullscreen = () => {
         if (document.exitFullscreen) {
             document.exitFullscreen().catch(console.error);
         } else if (
-            // @ts-ignore
+            // @ts-expect-error - legacy WebKit support
             document.webkitExitFullscreen
         ) {
-            // @ts-ignore
+            // @ts-expect-error - legacy WebKit support
             document.webkitExitFullscreen();
         } else if (
-            // @ts-ignore
+            // @ts-expect-error - legacy MS support
             document.msExitFullscreen
         ) {
-            // @ts-ignore
+            // @ts-expect-error - legacy MS support
             document.msExitFullscreen();
         }
     }, []);
