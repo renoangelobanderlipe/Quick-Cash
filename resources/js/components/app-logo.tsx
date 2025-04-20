@@ -12,7 +12,7 @@ export default function AppLogo() {
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    className="lucide lucide-coins-icon lucide-coins"
+                    className="lucide lucide-coins-icon lucide-coins dark:text-black"
                 >
                     <circle cx="8" cy="8" r="6" />
                     <path d="M18.09 10.37A6 6 0 1 1 10.34 18" />
