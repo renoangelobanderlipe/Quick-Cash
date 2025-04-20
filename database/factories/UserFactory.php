@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -28,10 +27,11 @@ class UserFactory extends Factory
             'middle_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'email' => $this->faker->unique()->safeEmail,
+            'md5_email' => $this->faker->unique()->md5(),
+            'is_active' => $this->faker->boolean(),
             'email_verified_at' => now(),
-            'password' => bcrypt('password'), // for test only
+            'password' => bcrypt('123123123'), // for test only
             'remember_token' => Str::random(10),
-            'is_active' => true,
         ];
     }
 

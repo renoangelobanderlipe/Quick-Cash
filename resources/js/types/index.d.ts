@@ -38,7 +38,7 @@ export interface User {
     last_name: string;
     email: string;
     is_active: string;
-    avatar?: string;
+    md5_email?: string;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
